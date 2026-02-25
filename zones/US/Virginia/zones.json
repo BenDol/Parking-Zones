@@ -1,8 +1,8 @@
 {
   "country": "US",
   "region": "Virginia",
-  "lastUpdated": "2026-02-25T19:39:05.056Z",
-  "zoneCount": 3,
+  "lastUpdated": "2026-02-25T19:39:14.118Z",
+  "zoneCount": 4,
   "zones": {
     "dq9t60": [
       {
@@ -37,6 +37,23 @@
         "country": "US",
         "region": "Virginia",
         "id": "cdn-US-Virginia-3ec63362-79e4-402a-b87e-f17c24fa3b29",
+        "verified": false,
+        "version": 1
+      },
+      {
+        "name": "Test Parking Beta",
+        "center": {
+          "lat": 37.49033954729687,
+          "lng": -76.55197287783669
+        },
+        "radius": 50,
+        "enforcementType": "private",
+        "enforcementMethod": "unknown",
+        "freeMinutes": 30,
+        "currency": "USD",
+        "country": "US",
+        "region": "Virginia",
+        "id": "cdn-US-Virginia-3bafd7f8-ad3a-4755-8fce-7ec8769b4673",
         "verified": false,
         "version": 1
       }
