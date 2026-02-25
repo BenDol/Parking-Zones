@@ -219,6 +219,11 @@ export async function processSubmission({ github, context, core }) {
     const mainRef = await github.rest.git.getRef({ owner, repo, ref: 'heads/main' });
     const mainSha = mainRef.data.object.sha;
 
+    // Delete stale branch if it exists from a previous failed run
+    try {
+      await github.rest.git.deleteRef({ owner, repo, ref: `heads/${branchName}` });
+    } catch { /* branch doesn't exist — that's fine */ }
+
     await github.rest.git.createRef({
       owner,
       repo,
