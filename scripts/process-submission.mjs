@@ -4,7 +4,8 @@
  *
  * @param {{ github: object, context: object, core: object }} params
  */
-import { encode as geohashEncode } from 'ngeohash';
+import ngeohash from 'ngeohash';
+const { encode: geohashEncode } = ngeohash;
 import { ParkingZoneSubmission, CdnZoneIndex } from './schemas.mjs';
 
 const GEOHASH_PRECISION = 6;
