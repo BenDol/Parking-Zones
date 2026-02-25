@@ -1,13 +1,13 @@
 # parking-zones
 
-Community-contributed parking zone data, served globally via [jsDelivr CDN](https://www.jsdelivr.com/).
+Community-contributed parking zone data, served via [GitHub raw content](https://raw.githubusercontent.com/).
 
-Zone data is stored as static JSON files keyed by [geohash](https://en.wikipedia.org/wiki/Geohash) for fast spatial lookups. Submissions are made through GitHub Issues and automatically validated, deduplicated, and converted into pull requests by GitHub Actions.
+Zone data is stored as static JSON files keyed by [geohash](https://en.wikipedia.org/wiki/Geohash) for fast spatial lookups. Submissions are made through GitHub Issues (or in-app via the ParkingWarden mobile app) and automatically validated, deduplicated, and converted into pull requests by GitHub Actions.
 
 ## How it works
 
 ```
-Submit zone via GitHub Issue
+Submit zone via GitHub Issue / ParkingWarden app
         |
         v
   GitHub Action validates (Zod schema)
@@ -22,12 +22,12 @@ Submit zone via GitHub Issue
   manifest.json auto-regenerated
         |
         v
-  jsDelivr CDN serves data globally (free, cached)
+  Clients fetch data via commit-pinned raw.githubusercontent.com URLs
 ```
 
-Clients fetch `manifest.json` to discover regions, then load individual zone files filtered by bounding box and geohash neighbourhood.
+Clients resolve the latest commit SHA via the GitHub API, then fetch `manifest.json` and zone files at that SHA. This ensures newly merged zones are available within ~60 seconds (the GitHub API cache window), since each commit produces unique URLs that bypass browser caching.
 
-**CDN base URL:** `https://cdn.jsdelivr.net/gh/doltech/parking-zones@main`
+**Raw content base URL:** `https://raw.githubusercontent.com/BenDol/Parking-Zones/{sha}/`
 
 ## Repository structure
 
@@ -104,7 +104,15 @@ The `zones` object maps 6-character geohash keys to arrays of parking zones. Thi
 
 ## Submitting a zone
 
-### Via GitHub Issue (recommended)
+### Via ParkingWarden app (recommended)
+
+1. Open the app and go to **Submit a Zone**
+2. GPS coordinates, country, region, and currency are auto-detected via reverse geocoding
+3. Fill in zone name, radius, enforcement type/method, and free minutes
+4. Submit to **Community** — this creates a GitHub Issue automatically
+5. The automation validates, deduplicates, and creates a PR
+
+### Via GitHub Issue
 
 1. Go to **Issues > New Issue > Zone Submission**
 2. Paste your zone data as JSON:
@@ -180,6 +188,19 @@ Submissions can be auto-merged (skipping manual review) when:
 - The submitter's email (from the optional Email field) is listed in `config/auto-merge-emails.json`
 
 By default, auto-merge is **disabled** — all submissions require manual PR review.
+
+## Caching and freshness
+
+The ParkingWarden app uses commit-pinned URLs to ensure fast propagation of new zones:
+
+1. **GitHub API** (`git/refs/heads/main`) resolves the latest commit SHA — cached 60 seconds server-side
+2. **Raw content** fetched at `raw.githubusercontent.com/{owner}/{repo}/{sha}/...` — unique URL per commit, so browser cache never serves stale data
+3. **In-memory manifest cache** (1 hour) — prevents redundant network requests within a session
+4. **Orchestrator fetch record** (1 hour for github-cdn) — prevents re-querying the same location too frequently
+
+After merging a PR, new zones are available to app users within ~60 seconds on next app launch.
+
+Previously this repo used jsDelivr CDN (`cdn.jsdelivr.net`) which has a 7-day browser cache (`max-age=604800`), making newly merged zones invisible for up to a week. The switch to raw.githubusercontent.com with commit-pinned URLs resolved this.
 
 ## License
 
