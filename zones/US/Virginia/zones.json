@@ -1,8 +1,8 @@
 {
   "country": "US",
   "region": "Virginia",
-  "lastUpdated": "2026-02-25T19:27:17.408Z",
-  "zoneCount": 1,
+  "lastUpdated": "2026-02-25T19:38:59.900Z",
+  "zoneCount": 2,
   "zones": {
     "dq9t60": [
       {
@@ -20,6 +20,25 @@
         "country": "US",
         "region": "Virginia",
         "id": "cdn-US-Virginia-88445e46-b85a-4c0a-b5e5-a3440684ede9",
+        "verified": false,
+        "version": 1
+      }
+    ],
+    "dq9t3b": [
+      {
+        "name": "Test Lot Delta",
+        "center": {
+          "lat": 37.490221500100326,
+          "lng": -76.55313291440383
+        },
+        "radius": 50,
+        "enforcementType": "private",
+        "enforcementMethod": "unknown",
+        "freeMinutes": 60,
+        "currency": "USD",
+        "country": "US",
+        "region": "Virginia",
+        "id": "cdn-US-Virginia-b056807c-9da3-4ed6-87fb-5592fd51c286",
         "verified": false,
         "version": 1
       }
