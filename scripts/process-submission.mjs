@@ -85,16 +85,30 @@ function generateZoneId(country, region) {
   return `cdn-${country}-${region}-${uuid}`;
 }
 
+const DEFAULT_BRANCH = 'dev';
+
+/**
+ * Extract the target branch from issue labels (e.g. "branch:dev" -> "dev").
+ * Falls back to DEFAULT_BRANCH if no branch label is found.
+ */
+function getTargetBranch(issueLabels) {
+  for (const label of issueLabels ?? []) {
+    const name = typeof label === 'string' ? label : label.name;
+    if (name?.startsWith('branch:')) return name.slice('branch:'.length);
+  }
+  return DEFAULT_BRANCH;
+}
+
 /**
  * Regenerate manifest.json via the GitHub API (no local filesystem needed).
  * Uses shared buildManifest() for bbox computation and manifest structure.
  */
-async function updateManifestViaApi({ github, owner, repo }) {
+async function updateManifestViaApi({ github, owner, repo, branch }) {
   // Walk the repo tree to find all zone files
   const { data: tree } = await github.rest.git.getTree({
     owner,
     repo,
-    tree_sha: 'main',
+    tree_sha: branch,
     recursive: 'true',
   });
 
@@ -105,7 +119,7 @@ async function updateManifestViaApi({ github, owner, repo }) {
   // Read each zone file via API
   const zoneFiles = [];
   for (const path of zoneFilePaths) {
-    const { data: file } = await github.rest.repos.getContent({ owner, repo, path, ref: 'main' });
+    const { data: file } = await github.rest.repos.getContent({ owner, repo, path, ref: branch });
     zoneFiles.push(JSON.parse(Buffer.from(file.content, 'base64').toString('utf-8')));
   }
 
@@ -115,7 +129,7 @@ async function updateManifestViaApi({ github, owner, repo }) {
   // Get current manifest SHA (needed for update)
   let existingSha;
   try {
-    const { data: existing } = await github.rest.repos.getContent({ owner, repo, path: 'manifest.json', ref: 'main' });
+    const { data: existing } = await github.rest.repos.getContent({ owner, repo, path: 'manifest.json', ref: branch });
     existingSha = existing.sha;
   } catch { /* file doesn't exist yet */ }
 
@@ -125,7 +139,7 @@ async function updateManifestViaApi({ github, owner, repo }) {
     path: 'manifest.json',
     message: 'Update manifest.json [skip ci]',
     content: Buffer.from(newContent).toString('base64'),
-    branch: 'main',
+    branch,
   };
   if (existingSha) commitParams.sha = existingSha;
 
@@ -147,6 +161,7 @@ export async function processSubmission({ github, context, core }) {
     issue = resp.data;
   }
   const issueNumber = issue.number;
+  const targetBranch = getTargetBranch(issue.labels);
 
   async function addComment(body) {
     await github.rest.issues.createComment({ owner, repo, issue_number: issueNumber, body });
@@ -207,7 +222,7 @@ export async function processSubmission({ github, context, core }) {
     let existingContent;
     let existingFile;
     try {
-      existingFile = await github.rest.repos.getContent({ owner, repo, path: filePath, ref: 'main' });
+      existingFile = await github.rest.repos.getContent({ owner, repo, path: filePath, ref: targetBranch });
       existingContent = JSON.parse(Buffer.from(existingFile.data.content, 'base64').toString('utf-8'));
     } catch (err) {
       if (err.status === 404) {
@@ -264,8 +279,8 @@ export async function processSubmission({ github, context, core }) {
 
     // 8. Create branch
     const branchName = `zone-submission/${issueNumber}`;
-    const mainRef = await github.rest.git.getRef({ owner, repo, ref: 'heads/main' });
-    const mainSha = mainRef.data.object.sha;
+    const baseRef = await github.rest.git.getRef({ owner, repo, ref: `heads/${targetBranch}` });
+    const baseSha = baseRef.data.object.sha;
 
     // Delete stale branch if it exists from a previous failed run
     try {
@@ -276,7 +291,7 @@ export async function processSubmission({ github, context, core }) {
       owner,
       repo,
       ref: `refs/heads/${branchName}`,
-      sha: mainSha,
+      sha: baseSha,
     });
 
     // 9. Commit the file
@@ -310,14 +325,14 @@ export async function processSubmission({ github, context, core }) {
       title: `Add zone: ${zone.name}`,
       body: `Adds parking zone **${zone.name}** to \`${country}/${region}\`.\n\nGeohash: \`${geohash}\`\nZone ID: \`${zoneId}\`\n\nCloses #${issueNumber}`,
       head: branchName,
-      base: 'main',
+      base: targetBranch,
     });
 
     // 11. Check auto-merge eligibility
     let shouldAutoMerge = false;
 
     try {
-      const settingsFile = await github.rest.repos.getContent({ owner, repo, path: 'config/settings.json', ref: 'main' });
+      const settingsFile = await github.rest.repos.getContent({ owner, repo, path: 'config/settings.json', ref: targetBranch });
       const settings = JSON.parse(Buffer.from(settingsFile.data.content, 'base64').toString('utf-8'));
       if (settings.autoMerge) shouldAutoMerge = true;
     } catch { /* ignore */ }
@@ -327,7 +342,7 @@ export async function processSubmission({ github, context, core }) {
       const emailMatch = issue.body.match(/### Email\s*\n\s*(\S+@\S+)/);
       if (emailMatch) {
         try {
-          const emailsFile = await github.rest.repos.getContent({ owner, repo, path: 'config/auto-merge-emails.json', ref: 'main' });
+          const emailsFile = await github.rest.repos.getContent({ owner, repo, path: 'config/auto-merge-emails.json', ref: targetBranch });
           const trustedEmails = JSON.parse(Buffer.from(emailsFile.data.content, 'base64').toString('utf-8'));
           if (trustedEmails.includes(emailMatch[1])) shouldAutoMerge = true;
         } catch { /* ignore */ }
@@ -341,7 +356,7 @@ export async function processSubmission({ github, context, core }) {
         // Regenerate manifest inline — the merge was done via GITHUB_TOKEN so
         // the push event won't trigger update-manifest.yml (GitHub Actions limitation).
         try {
-          await updateManifestViaApi({ github, owner, repo });
+          await updateManifestViaApi({ github, owner, repo, branch: targetBranch });
         } catch (manifestErr) {
           core.warning(`Manifest update failed (non-fatal): ${manifestErr.message}`);
         }

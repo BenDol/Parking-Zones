@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Regenerates manifest.json by scanning all zones files on the local filesystem.
- * Called by the update-manifest.yml GitHub Action on push to main.
+ * Called by the update-manifest.yml GitHub Action on push to main/dev.
  */
 import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';

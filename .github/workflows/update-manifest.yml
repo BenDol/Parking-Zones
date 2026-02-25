@@ -3,7 +3,7 @@ name: Update Manifest
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches: [main, dev]
     paths:
       - 'zones/**'
 
@@ -50,7 +50,7 @@ jobs:
 
           # Retry with exponential backoff for concurrent pushes
           for i in 1 2 3 4 5; do
-            git pull --rebase origin main && git push origin main && break
+            git pull --rebase origin ${{ github.ref_name }} && git push origin ${{ github.ref_name }} && break
             echo "Push failed, retrying in $((i * 2)) seconds..."
             sleep $((i * 2))
           done

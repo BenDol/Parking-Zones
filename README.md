@@ -16,7 +16,7 @@ Submit zone via GitHub Issue / ParkingWarden app
   Creates PR with updated zone file
         |
         v
-  PR merged to main
+  PR merged to dev
         |
         v
   manifest.json auto-regenerated
@@ -47,7 +47,7 @@ scripts/
   ISSUE_TEMPLATE/zone-submission.yml  # Structured submission form
   workflows/
     process-submission.yml            # Runs on issue open/label
-    update-manifest.yml               # Runs on push to main (zones/**)
+    update-manifest.yml               # Runs on push to main/dev (zones/**)
 ```
 
 ## Data format
@@ -193,7 +193,7 @@ By default, auto-merge is **disabled** — all submissions require manual PR rev
 
 The ParkingWarden app uses commit-pinned URLs to ensure fast propagation of new zones:
 
-1. **GitHub API** (`git/refs/heads/main`) resolves the latest commit SHA — cached 60 seconds server-side
+1. **GitHub API** (`git/refs/heads/dev`) resolves the latest commit SHA — cached 60 seconds server-side
 2. **Raw content** fetched at `raw.githubusercontent.com/{owner}/{repo}/{sha}/...` — unique URL per commit, so browser cache never serves stale data
 3. **In-memory manifest cache** (1 hour) — prevents redundant network requests within a session
 4. **Orchestrator fetch record** (1 hour for github-cdn) — prevents re-querying the same location too frequently
