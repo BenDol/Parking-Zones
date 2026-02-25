@@ -84,10 +84,20 @@ function generateZoneId(country, region) {
 }
 
 export async function processSubmission({ github, context, core }) {
-  const issue = context.payload.issue;
-  const issueNumber = issue.number;
   const owner = context.repo.owner;
   const repo = context.repo.repo;
+
+  // Support manual workflow_dispatch with issue_number input
+  let issue;
+  if (context.payload.issue) {
+    issue = context.payload.issue;
+  } else {
+    const issueNum = parseInt(context.payload.inputs?.issue_number, 10);
+    if (!issueNum) throw new Error('No issue found in event and no issue_number input provided');
+    const resp = await github.rest.issues.get({ owner, repo, issue_number: issueNum });
+    issue = resp.data;
+  }
+  const issueNumber = issue.number;
 
   async function addComment(body) {
     await github.rest.issues.createComment({ owner, repo, issue_number: issueNumber, body });

@@ -1,12 +1,18 @@
 name: Process Zone Submission
 
 on:
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: 'Issue number to process'
+        required: true
+        type: number
   issues:
     types: [opened, labeled]
 
 jobs:
   process:
-    if: contains(github.event.issue.labels.*.name, 'zone-submission')
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.issue.labels.*.name, 'zone-submission')
     runs-on: ubuntu-latest
 
     permissions:
