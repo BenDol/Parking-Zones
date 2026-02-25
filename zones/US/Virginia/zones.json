@@ -1,8 +1,8 @@
 {
   "country": "US",
   "region": "Virginia",
-  "lastUpdated": "2026-02-25T19:39:05.056Z",
-  "zoneCount": 3,
+  "lastUpdated": "2026-02-25T19:39:13.275Z",
+  "zoneCount": 4,
   "zones": {
     "dq9t60": [
       {
@@ -37,6 +37,23 @@
         "country": "US",
         "region": "Virginia",
         "id": "cdn-US-Virginia-3ec63362-79e4-402a-b87e-f17c24fa3b29",
+        "verified": false,
+        "version": 1
+      },
+      {
+        "name": "Test Zone Gamma",
+        "center": {
+          "lat": 37.489915569941815,
+          "lng": -76.55246626925452
+        },
+        "radius": 50,
+        "enforcementType": "private",
+        "enforcementMethod": "unknown",
+        "freeMinutes": 45,
+        "currency": "USD",
+        "country": "US",
+        "region": "Virginia",
+        "id": "cdn-US-Virginia-a95ea207-de7e-4f3b-aeab-b129a13a852f",
         "verified": false,
         "version": 1
       }
