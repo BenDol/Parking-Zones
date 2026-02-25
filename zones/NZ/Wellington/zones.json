@@ -1,8 +1,8 @@
 {
   "country": "NZ",
   "region": "Wellington",
-  "lastUpdated": "2026-02-25T22:09:46.154Z",
-  "zoneCount": 3,
+  "lastUpdated": "2026-02-25T23:22:32.115Z",
+  "zoneCount": 4,
   "zones": {
     "rbsw0q": [
       {
@@ -60,6 +60,25 @@
         "country": "NZ",
         "region": "Wellington",
         "id": "cdn-NZ-Wellington-90adf41a-92b0-4c33-8987-29e2db47fd38",
+        "verified": false,
+        "version": 1
+      },
+      {
+        "name": "Goodshed Rd Shopping Complex",
+        "description": "Part 2 of retail area",
+        "center": {
+          "lat": -41.12607657440866,
+          "lng": 175.07232656251225
+        },
+        "radius": 100,
+        "enforcementType": "private",
+        "enforcementMethod": "unknown",
+        "freeMinutes": 0,
+        "maxStayMinutes": 120,
+        "currency": "NZD",
+        "country": "NZ",
+        "region": "Wellington",
+        "id": "cdn-NZ-Wellington-35907fd1-0c81-43dc-86df-eec17addb4d1",
         "verified": false,
         "version": 1
       }
