@@ -7,6 +7,7 @@
 import ngeohash from 'ngeohash';
 const { encode: geohashEncode } = ngeohash;
 import { ParkingZoneSubmission, CdnZoneIndex } from './schemas.mjs';
+import { buildManifest } from './manifest-utils.mjs';
 
 const GEOHASH_PRECISION = 6;
 
@@ -82,6 +83,53 @@ function findDuplicate(candidate, existingZones) {
 function generateZoneId(country, region) {
   const uuid = crypto.randomUUID();
   return `cdn-${country}-${region}-${uuid}`;
+}
+
+/**
+ * Regenerate manifest.json via the GitHub API (no local filesystem needed).
+ * Uses shared buildManifest() for bbox computation and manifest structure.
+ */
+async function updateManifestViaApi({ github, owner, repo }) {
+  // Walk the repo tree to find all zone files
+  const { data: tree } = await github.rest.git.getTree({
+    owner,
+    repo,
+    tree_sha: 'main',
+    recursive: 'true',
+  });
+
+  const zoneFilePaths = tree.tree
+    .filter((entry) => entry.type === 'blob' && entry.path.startsWith('zones/') && entry.path.endsWith('/zones.json'))
+    .map((entry) => entry.path);
+
+  // Read each zone file via API
+  const zoneFiles = [];
+  for (const path of zoneFilePaths) {
+    const { data: file } = await github.rest.repos.getContent({ owner, repo, path, ref: 'main' });
+    zoneFiles.push(JSON.parse(Buffer.from(file.content, 'base64').toString('utf-8')));
+  }
+
+  const manifest = buildManifest(zoneFiles);
+  const newContent = JSON.stringify(manifest, null, 2) + '\n';
+
+  // Get current manifest SHA (needed for update)
+  let existingSha;
+  try {
+    const { data: existing } = await github.rest.repos.getContent({ owner, repo, path: 'manifest.json', ref: 'main' });
+    existingSha = existing.sha;
+  } catch { /* file doesn't exist yet */ }
+
+  const commitParams = {
+    owner,
+    repo,
+    path: 'manifest.json',
+    message: 'Update manifest.json [skip ci]',
+    content: Buffer.from(newContent).toString('base64'),
+    branch: 'main',
+  };
+  if (existingSha) commitParams.sha = existingSha;
+
+  await github.rest.repos.createOrUpdateFileContents(commitParams);
 }
 
 export async function processSubmission({ github, context, core }) {
@@ -289,6 +337,15 @@ export async function processSubmission({ github, context, core }) {
     if (shouldAutoMerge) {
       try {
         await github.rest.pulls.merge({ owner, repo, pull_number: pr.data.number, merge_method: 'squash' });
+
+        // Regenerate manifest inline — the merge was done via GITHUB_TOKEN so
+        // the push event won't trigger update-manifest.yml (GitHub Actions limitation).
+        try {
+          await updateManifestViaApi({ github, owner, repo });
+        } catch (manifestErr) {
+          core.warning(`Manifest update failed (non-fatal): ${manifestErr.message}`);
+        }
+
         await addComment(`Zone submitted and auto-merged! PR: ${pr.data.html_url}`);
       } catch (err) {
         await addComment(`Zone PR created but auto-merge failed: ${err.message}\n\nPR: ${pr.data.html_url}`);
