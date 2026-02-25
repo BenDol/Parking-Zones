@@ -1,0 +1,28 @@
+{
+  "country": "US",
+  "region": "Virginia",
+  "lastUpdated": "2026-02-25T18:09:49.065Z",
+  "zoneCount": 1,
+  "zones": {
+    "dq9t60": [
+      {
+        "name": "Home (Community)",
+        "description": "Testing",
+        "center": {
+          "lat": 37.490242,
+          "lng": -76.552545
+        },
+        "radius": 50,
+        "enforcementType": "private",
+        "enforcementMethod": "unknown",
+        "freeMinutes": 5,
+        "currency": "USD",
+        "country": "US",
+        "region": "Virginia",
+        "id": "cdn-US-Virginia-b2f39742-cfb2-4e85-8ead-d361277bf85e",
+        "verified": false,
+        "version": 1
+      }
+    ]
+  }
+}
