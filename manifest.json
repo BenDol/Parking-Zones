@@ -13,6 +13,17 @@
     },
     {
       "country": "NZ",
+      "region": "Wellington",
+      "bbox": {
+        "north": -41,
+        "south": -41.1,
+        "east": 175.1,
+        "west": 175
+      },
+      "zoneCount": 1
+    },
+    {
+      "country": "NZ",
       "region": "auckland",
       "bbox": {
         "north": -36.8,
@@ -45,5 +56,5 @@
       "zoneCount": 4
     }
   ],
-  "lastUpdated": "2026-02-25T19:39:18.837Z"
+  "lastUpdated": "2026-02-25T21:36:58.651Z"
 }
