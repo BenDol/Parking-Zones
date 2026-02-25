@@ -8,7 +8,13 @@ on:
         required: true
         type: number
   issues:
-    types: [opened, labeled]
+    types: [opened]
+
+# Queue submissions so they run one at a time — prevents merge conflicts
+# when multiple zones are submitted rapidly.
+concurrency:
+  group: zone-submission
+  cancel-in-progress: false
 
 jobs:
   process:
