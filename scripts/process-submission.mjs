@@ -278,7 +278,7 @@ export async function processSubmission({ github, context, core }) {
     const newContent = JSON.stringify(existingContent, null, 2) + '\n';
 
     // 8. Create branch
-    const branchName = `zone-submission/${issueNumber}`;
+    const branchName = `zone-submission/${targetBranch}/${issueNumber}`;
     const baseRef = await github.rest.git.getRef({ owner, repo, ref: `heads/${targetBranch}` });
     const baseSha = baseRef.data.object.sha;
 
