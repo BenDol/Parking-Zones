@@ -1,0 +1,63 @@
+{
+  "country": "GB",
+  "region": "scotland",
+  "lastUpdated": "2026-02-25T12:00:00.000Z",
+  "zoneCount": 3,
+  "zones": {
+    "gcvwr8": [
+      {
+        "id": "cdn-GB-scotland-seed-001",
+        "name": "Edinburgh Castle Esplanade",
+        "description": "Restricted parking near Edinburgh Castle. Enforcement cameras active.",
+        "center": { "lat": 55.9486, "lng": -3.1999 },
+        "radius": 80,
+        "enforcementType": "council",
+        "enforcementMethod": "camera_anpr",
+        "freeMinutes": 0,
+        "currency": "GBP",
+        "country": "GB",
+        "region": "scotland",
+        "city": "Edinburgh",
+        "verified": false,
+        "version": 1
+      }
+    ],
+    "gcvwr9": [
+      {
+        "id": "cdn-GB-scotland-seed-002",
+        "name": "Princes Street East",
+        "description": "Council controlled parking zone along Princes Street.",
+        "center": { "lat": 55.9524, "lng": -3.1883 },
+        "radius": 60,
+        "enforcementType": "council",
+        "enforcementMethod": "physical_warden",
+        "freeMinutes": 30,
+        "maxStayMinutes": 120,
+        "currency": "GBP",
+        "country": "GB",
+        "region": "scotland",
+        "city": "Edinburgh",
+        "verified": false,
+        "version": 1
+      },
+      {
+        "id": "cdn-GB-scotland-seed-003",
+        "name": "Waverley Station Car Park",
+        "description": "NCP car park at Edinburgh Waverley railway station.",
+        "center": { "lat": 55.9513, "lng": -3.1903 },
+        "radius": 45,
+        "enforcementType": "private",
+        "enforcementMethod": "barrier",
+        "enforcementCompany": "NCP",
+        "freeMinutes": 0,
+        "chargePerHour": 4.5,
+        "currency": "GBP",
+        "country": "GB",
+        "region": "scotland",
+        "city": "Edinburgh",
+        "verified": false,
+        "version": 1
+      }
+    ]
+  }
+}

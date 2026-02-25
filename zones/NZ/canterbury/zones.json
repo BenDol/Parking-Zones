@@ -1,0 +1,47 @@
+{
+  "country": "NZ",
+  "region": "canterbury",
+  "lastUpdated": "2026-02-25T12:00:00.000Z",
+  "zoneCount": 2,
+  "zones": {
+    "rbkr9y": [
+      {
+        "id": "cdn-NZ-canterbury-seed-001",
+        "name": "Cathedral Square",
+        "description": "Central Christchurch parking near Cathedral Square.",
+        "center": { "lat": -43.5321, "lng": 172.6362 },
+        "radius": 65,
+        "enforcementType": "council",
+        "enforcementMethod": "pay_and_display",
+        "freeMinutes": 30,
+        "maxStayMinutes": 120,
+        "chargePerHour": 3.5,
+        "currency": "NZD",
+        "country": "NZ",
+        "region": "canterbury",
+        "city": "Christchurch",
+        "verified": false,
+        "version": 1
+      }
+    ],
+    "rbkr9z": [
+      {
+        "id": "cdn-NZ-canterbury-seed-002",
+        "name": "Cashel Street Mall",
+        "description": "Re:START Mall area parking zone.",
+        "center": { "lat": -43.5329, "lng": 172.6388 },
+        "radius": 40,
+        "enforcementType": "private",
+        "enforcementMethod": "physical_warden",
+        "freeMinutes": 60,
+        "maxStayMinutes": 180,
+        "currency": "NZD",
+        "country": "NZ",
+        "region": "canterbury",
+        "city": "Christchurch",
+        "verified": false,
+        "version": 1
+      }
+    ]
+  }
+}

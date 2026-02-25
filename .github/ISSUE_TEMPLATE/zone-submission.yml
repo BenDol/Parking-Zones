@@ -1,0 +1,42 @@
+name: Zone Submission
+description: Submit a new parking zone to the community database
+title: "Zone submission: "
+labels: ["zone-submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for contributing parking zone data! Please fill in the zone details below.
+        The JSON will be validated automatically and a PR created for review.
+
+  - type: textarea
+    id: zone-data
+    attributes:
+      label: Zone Data
+      description: |
+        Paste the parking zone data as JSON. Required fields: name, center (lat/lng), radius, enforcementType, enforcementMethod, country, region.
+      placeholder: |
+        ```json
+        {
+          "name": "Example Car Park",
+          "center": { "lat": 55.9533, "lng": -3.1883 },
+          "radius": 50,
+          "enforcementType": "private",
+          "enforcementMethod": "camera_anpr",
+          "freeMinutes": 120,
+          "country": "GB",
+          "region": "scotland"
+        }
+        ```
+      render: json
+    validations:
+      required: true
+
+  - type: input
+    id: email
+    attributes:
+      label: Email
+      description: Optional. If your email is on the trusted list, the submission may be auto-merged.
+      placeholder: you@example.com
+    validations:
+      required: false

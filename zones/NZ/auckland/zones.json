@@ -1,0 +1,48 @@
+{
+  "country": "NZ",
+  "region": "auckland",
+  "lastUpdated": "2026-02-25T12:00:00.000Z",
+  "zoneCount": 2,
+  "zones": {
+    "rckhqv": [
+      {
+        "id": "cdn-NZ-auckland-seed-001",
+        "name": "Britomart Transport Centre",
+        "description": "Short-stay parking near Britomart station.",
+        "center": { "lat": -36.8442, "lng": 174.7681 },
+        "radius": 55,
+        "enforcementType": "council",
+        "enforcementMethod": "ticket_machine",
+        "freeMinutes": 15,
+        "maxStayMinutes": 120,
+        "chargePerHour": 6.0,
+        "currency": "NZD",
+        "country": "NZ",
+        "region": "auckland",
+        "city": "Auckland",
+        "verified": false,
+        "version": 1
+      }
+    ],
+    "rckhqy": [
+      {
+        "id": "cdn-NZ-auckland-seed-002",
+        "name": "Queen Street Central",
+        "description": "Metered parking along Queen Street CBD.",
+        "center": { "lat": -36.8485, "lng": 174.7633 },
+        "radius": 70,
+        "enforcementType": "council",
+        "enforcementMethod": "pay_and_display",
+        "freeMinutes": 0,
+        "maxStayMinutes": 60,
+        "chargePerHour": 5.0,
+        "currency": "NZD",
+        "country": "NZ",
+        "region": "auckland",
+        "city": "Auckland",
+        "verified": false,
+        "version": 1
+      }
+    ]
+  }
+}

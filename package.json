@@ -1,0 +1,15 @@
+{
+  "name": "parking-zones",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Community-contributed parking zone data served via jsDelivr CDN",
+  "scripts": {
+    "validate": "node scripts/validate-zone.mjs",
+    "update-manifest": "node scripts/update-manifest.mjs"
+  },
+  "dependencies": {
+    "ngeohash": "^0.6.3",
+    "zod": "^3.24.1"
+  }
+}

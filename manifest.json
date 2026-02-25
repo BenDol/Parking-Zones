@@ -1,0 +1,23 @@
+{
+  "regions": [
+    {
+      "country": "GB",
+      "region": "scotland",
+      "bbox": { "north": 56.0, "south": 55.9, "east": -3.1, "west": -3.3 },
+      "zoneCount": 3
+    },
+    {
+      "country": "NZ",
+      "region": "auckland",
+      "bbox": { "north": -36.8, "south": -36.9, "east": 174.8, "west": 174.7 },
+      "zoneCount": 2
+    },
+    {
+      "country": "NZ",
+      "region": "canterbury",
+      "bbox": { "north": -43.5, "south": -43.6, "east": 172.7, "west": 172.6 },
+      "zoneCount": 2
+    }
+  ],
+  "lastUpdated": "2026-02-25T12:00:00.000Z"
+}
