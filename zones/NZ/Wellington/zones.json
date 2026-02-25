@@ -1,8 +1,8 @@
 {
   "country": "NZ",
   "region": "Wellington",
-  "lastUpdated": "2026-02-25T23:29:49.270Z",
-  "zoneCount": 5,
+  "lastUpdated": "2026-02-25T23:35:34.095Z",
+  "zoneCount": 6,
   "zones": {
     "rbsw0q": [
       {
@@ -98,6 +98,24 @@
         "country": "NZ",
         "region": "Wellington",
         "id": "cdn-NZ-Wellington-ef7c209f-7f38-4fa4-9f6b-7b64939044a7",
+        "verified": false,
+        "version": 1
+      },
+      {
+        "name": "Pak N Sav UH",
+        "center": {
+          "lat": -41.124443430345295,
+          "lng": 175.06723212934406
+        },
+        "radius": 100,
+        "enforcementType": "private",
+        "enforcementMethod": "physical_warden",
+        "freeMinutes": 0,
+        "maxStayMinutes": 90,
+        "currency": "NZD",
+        "country": "NZ",
+        "region": "Wellington",
+        "id": "cdn-NZ-Wellington-ab7d2599-baf7-497d-99fe-40824f9084de",
         "verified": false,
         "version": 1
       }
