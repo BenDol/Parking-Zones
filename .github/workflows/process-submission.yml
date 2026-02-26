@@ -21,7 +21,8 @@ jobs:
     if: >-
       github.event_name == 'workflow_dispatch' ||
       contains(github.event.issue.labels.*.name, 'zone-submission') ||
-      contains(github.event.issue.labels.*.name, 'zone-update')
+      contains(github.event.issue.labels.*.name, 'zone-update') ||
+      contains(github.event.issue.labels.*.name, 'zone-deletion')
     runs-on: ubuntu-latest
 
     permissions:
@@ -58,8 +59,12 @@ jobs:
               labels = issue.labels;
             }
 
-            const isUpdate = labels.some(l => (typeof l === 'string' ? l : l.name) === 'zone-update');
-            if (isUpdate) {
+            const labelName = (l) => typeof l === 'string' ? l : l.name;
+            const isDeletion = labels.some(l => labelName(l) === 'zone-deletion');
+            const isUpdate = labels.some(l => labelName(l) === 'zone-update');
+            if (isDeletion) {
+              await mod.processDeletion({ github, context, core });
+            } else if (isUpdate) {
               await mod.processUpdate({ github, context, core });
             } else {
               await mod.processSubmission({ github, context, core });

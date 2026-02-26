@@ -1,0 +1,27 @@
+name: Zone Deletion
+description: Request removal of an existing parking zone
+title: "Zone deletion: "
+labels: ["zone-deletion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Request the removal of a parking zone from the community database.
+        The deletion will be validated automatically and a PR created for review.
+
+  - type: textarea
+    id: deletion-data
+    attributes:
+      label: Deletion Data
+      description: |
+        Paste the deletion payload as JSON. Required: zoneId. Optionally include a reason.
+      placeholder: |
+        ```json
+        {
+          "zoneId": "cdn-GB-scotland-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+          "reason": "Zone no longer exists"
+        }
+        ```
+      render: json
+    validations:
+      required: true
