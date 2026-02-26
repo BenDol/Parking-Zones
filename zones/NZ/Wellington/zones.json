@@ -1,7 +1,7 @@
 {
   "country": "NZ",
   "region": "Wellington",
-  "lastUpdated": "2026-02-25T23:35:34.095Z",
+  "lastUpdated": "2026-02-26T16:23:52.345Z",
   "zoneCount": 6,
   "zones": {
     "rbsw0q": [
@@ -34,14 +34,14 @@
         "radius": 12,
         "enforcementType": "private",
         "enforcementMethod": "unknown",
-        "freeMinutes": 0,
+        "freeMinutes": 30,
         "maxStayMinutes": 30,
         "currency": "NZD",
         "country": "NZ",
         "region": "Wellington",
         "id": "cdn-NZ-Wellington-295904b3-f463-45be-87a4-c7ad253374a0",
         "verified": false,
-        "version": 1
+        "version": 2
       }
     ],
     "rbsqpc": [
