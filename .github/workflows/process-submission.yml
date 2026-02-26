@@ -46,7 +46,19 @@ jobs:
         with:
           script: |
             const mod = await import('${{ github.workspace }}/scripts/process-submission.mjs');
-            const isUpdate = context.payload.issue?.labels?.some(l => l.name === 'zone-update');
+
+            // Resolve the issue — on workflow_dispatch there's no issue in the payload
+            let labels = context.payload.issue?.labels ?? [];
+            if (!labels.length && context.payload.inputs?.issue_number) {
+              const { data: issue } = await github.rest.issues.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: parseInt(context.payload.inputs.issue_number, 10),
+              });
+              labels = issue.labels;
+            }
+
+            const isUpdate = labels.some(l => (typeof l === 'string' ? l : l.name) === 'zone-update');
             if (isUpdate) {
               await mod.processUpdate({ github, context, core });
             } else {
