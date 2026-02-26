@@ -43,18 +43,7 @@
         "west": 172.6
       },
       "zoneCount": 2
-    },
-    {
-      "country": "US",
-      "region": "Virginia",
-      "bbox": {
-        "north": 37.5,
-        "south": 37.4,
-        "east": -76.5,
-        "west": -76.6
-      },
-      "zoneCount": 4
     }
   ],
-  "lastUpdated": "2026-02-25T23:35:39.079Z"
+  "lastUpdated": "2026-02-26T14:36:11.144Z"
 }
