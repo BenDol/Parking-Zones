@@ -52,7 +52,7 @@ export const ParkingZone = z.object({
   enforcementCompany: z.string().optional(),
   legislationCode: z.string().optional(),
   freeMinutes: z.number().min(0).default(0),
-  maxStayMinutes: z.number().positive().optional(),
+  maxStayMinutes: z.number().min(0).optional(),
   chargePerHour: z.number().min(0).optional(),
   currency: z.string().length(3).default('GBP'),
   operatingHours: z.array(OperatingHours).optional(),
