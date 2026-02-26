@@ -78,6 +78,12 @@ export const ZoneUpdatePayload = z.object({
   changes: ParkingZone.omit({ id: true, verified: true, version: true }).partial(),
 });
 
+/** Schema for zone deletion payloads. */
+export const ZoneDeletionPayload = z.object({
+  zoneId: z.string().min(1),
+  reason: z.string().optional(),
+});
+
 export const CdnZoneIndex = z.object({
   country: z.string().min(2).max(2),
   region: z.string().min(1),

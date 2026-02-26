@@ -1,3 +1,4 @@
 {
-  "autoMerge": true
+  "autoMerge": true,
+  "autoMergeDeletions": true
 }
