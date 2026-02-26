@@ -72,6 +72,12 @@ export const ParkingZoneSubmission = ParkingZone.omit({
   version: true,
 });
 
+/** Schema for zone update payloads (zoneId + partial changes). */
+export const ZoneUpdatePayload = z.object({
+  zoneId: z.string().min(1),
+  changes: ParkingZone.omit({ id: true, verified: true, version: true }).partial(),
+});
+
 export const CdnZoneIndex = z.object({
   country: z.string().min(2).max(2),
   region: z.string().min(1),

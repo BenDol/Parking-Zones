@@ -1,0 +1,30 @@
+name: Zone Update
+description: Propose changes to an existing parking zone
+title: "Zone update: "
+labels: ["zone-update"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Propose changes to an existing parking zone. Provide the zone ID and only the fields you want to change.
+        The update will be validated automatically and a PR created for review.
+
+  - type: textarea
+    id: update-data
+    attributes:
+      label: Update Data
+      description: |
+        Paste the update payload as JSON. Required: zoneId. Include only the fields you want to change inside "changes".
+      placeholder: |
+        ```json
+        {
+          "zoneId": "cdn-GB-scotland-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+          "changes": {
+            "freeMinutes": 60,
+            "enforcementMethod": "physical_warden"
+          }
+        }
+        ```
+      render: json
+    validations:
+      required: true
