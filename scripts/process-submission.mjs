@@ -6,7 +6,7 @@
  */
 import ngeohash from 'ngeohash';
 const { encode: geohashEncode } = ngeohash;
-import { ParkingZoneSubmission, CdnZoneIndex } from './schemas.mjs';
+import { ParkingZoneSubmission, ZoneUpdatePayload, CdnZoneIndex } from './schemas.mjs';
 import { buildManifest } from './manifest-utils.mjs';
 
 const GEOHASH_PRECISION = 6;
@@ -374,6 +374,239 @@ export async function processSubmission({ github, context, core }) {
 
   } catch (err) {
     core.setFailed(`Failed to process submission: ${err.message}`);
+    await addComment(`**Internal error:** ${err.message}\n\nPlease try again or contact a maintainer.`);
+    await addLabel('status:error');
+  }
+}
+
+/**
+ * Resolve an issue from context (shared by processSubmission & processUpdate).
+ */
+async function resolveIssue({ github, context, owner, repo }) {
+  if (context.payload.issue) return context.payload.issue;
+  const issueNum = parseInt(context.payload.inputs?.issue_number, 10);
+  if (!issueNum) throw new Error('No issue found in event and no issue_number input provided');
+  const resp = await github.rest.issues.get({ owner, repo, issue_number: issueNum });
+  return resp.data;
+}
+
+/**
+ * Process a zone-update issue: apply partial changes to an existing zone.
+ */
+export async function processUpdate({ github, context, core }) {
+  const owner = context.repo.owner;
+  const repo = context.repo.repo;
+
+  const issue = await resolveIssue({ github, context, owner, repo });
+  const issueNumber = issue.number;
+  const targetBranch = getTargetBranch(issue.labels);
+
+  async function addComment(body) {
+    await github.rest.issues.createComment({ owner, repo, issue_number: issueNumber, body });
+  }
+
+  async function addLabel(label) {
+    await github.rest.issues.addLabels({ owner, repo, issue_number: issueNumber, labels: [label] });
+  }
+
+  async function closeIssue() {
+    await github.rest.issues.update({ owner, repo, issue_number: issueNumber, state: 'closed' });
+  }
+
+  try {
+    await addLabel('status:processing');
+
+    // 1. Parse JSON from issue body
+    let rawJson;
+    try {
+      rawJson = extractJsonFromBody(issue.body);
+    } catch (err) {
+      await addComment(`**Error:** ${err.message}\n\nPlease ensure your update data is in a JSON code block.`);
+      await addLabel('status:invalid');
+      await closeIssue();
+      return;
+    }
+
+    let updateData;
+    try {
+      updateData = JSON.parse(rawJson);
+    } catch (err) {
+      await addComment(`**Error:** Invalid JSON: ${err.message}`);
+      await addLabel('status:invalid');
+      await closeIssue();
+      return;
+    }
+
+    // 2. Validate against update schema
+    const validation = ZoneUpdatePayload.safeParse(updateData);
+    if (!validation.success) {
+      const errors = validation.error.issues
+        .map((i) => `- \`${i.path.join('.')}\`: ${i.message}`)
+        .join('\n');
+      await addComment(`**Validation failed:**\n\n${errors}`);
+      await addLabel('status:invalid');
+      await closeIssue();
+      return;
+    }
+
+    const { zoneId, changes } = validation.data;
+
+    if (Object.keys(changes).length === 0) {
+      await addComment('**Error:** No changes provided in the update payload.');
+      await addLabel('status:invalid');
+      await closeIssue();
+      return;
+    }
+
+    // 3. Walk zone files to find the existing zone
+    const { data: tree } = await github.rest.git.getTree({
+      owner,
+      repo,
+      tree_sha: targetBranch,
+      recursive: 'true',
+    });
+
+    const zoneFilePaths = tree.tree
+      .filter((entry) => entry.type === 'blob' && entry.path.startsWith('zones/') && entry.path.endsWith('/zones.json'))
+      .map((entry) => entry.path);
+
+    let foundFilePath = null;
+    let existingContent = null;
+    let existingFile = null;
+    let foundGeohash = null;
+    let foundIndex = -1;
+
+    for (const filePath of zoneFilePaths) {
+      const { data: file } = await github.rest.repos.getContent({ owner, repo, path: filePath, ref: targetBranch });
+      const content = JSON.parse(Buffer.from(file.content, 'base64').toString('utf-8'));
+
+      for (const [geohash, bucket] of Object.entries(content.zones)) {
+        const idx = bucket.findIndex((z) => z.id === zoneId);
+        if (idx !== -1) {
+          foundFilePath = filePath;
+          existingContent = content;
+          existingFile = file;
+          foundGeohash = geohash;
+          foundIndex = idx;
+          break;
+        }
+      }
+      if (foundFilePath) break;
+    }
+
+    if (!foundFilePath || !existingContent || !existingFile) {
+      await addComment(`**Error:** Zone with ID \`${zoneId}\` not found in the repository.`);
+      await addLabel('status:invalid');
+      await closeIssue();
+      return;
+    }
+
+    // 4. Apply changes
+    const existingZone = existingContent.zones[foundGeohash][foundIndex];
+    const updatedZone = {
+      ...existingZone,
+      ...changes,
+      id: existingZone.id,           // Never allow ID changes
+      verified: existingZone.verified, // Preserve verified status
+      version: existingZone.version + 1,
+    };
+
+    // If center changed, the geohash bucket may need to move
+    const newGeohash = changes.center
+      ? geohashEncode(updatedZone.center.lat, updatedZone.center.lng, GEOHASH_PRECISION)
+      : foundGeohash;
+
+    if (newGeohash !== foundGeohash) {
+      // Remove from old bucket
+      existingContent.zones[foundGeohash].splice(foundIndex, 1);
+      if (existingContent.zones[foundGeohash].length === 0) {
+        delete existingContent.zones[foundGeohash];
+      }
+      // Add to new bucket
+      if (!existingContent.zones[newGeohash]) {
+        existingContent.zones[newGeohash] = [];
+      }
+      existingContent.zones[newGeohash].push(updatedZone);
+    } else {
+      existingContent.zones[foundGeohash][foundIndex] = updatedZone;
+    }
+
+    existingContent.lastUpdated = new Date().toISOString();
+
+    const newContent = JSON.stringify(existingContent, null, 2) + '\n';
+
+    // 5. Create branch
+    const branchName = `zone-update/${targetBranch}/${issueNumber}`;
+    const baseRef = await github.rest.git.getRef({ owner, repo, ref: `heads/${targetBranch}` });
+    const baseSha = baseRef.data.object.sha;
+
+    try {
+      await github.rest.git.deleteRef({ owner, repo, ref: `heads/${branchName}` });
+    } catch { /* branch doesn't exist — that's fine */ }
+
+    await github.rest.git.createRef({
+      owner,
+      repo,
+      ref: `refs/heads/${branchName}`,
+      sha: baseSha,
+    });
+
+    // 6. Commit the file
+    const changedFields = Object.keys(changes).join(', ');
+    const commitMessage = `Update zone: ${existingZone.name} (${changedFields})\n\nCloses #${issueNumber}`;
+
+    await github.rest.repos.createOrUpdateFileContents({
+      owner,
+      repo,
+      path: foundFilePath,
+      message: commitMessage,
+      content: Buffer.from(newContent).toString('base64'),
+      sha: existingFile.sha,
+      branch: branchName,
+    });
+
+    // 7. Create PR
+    const pr = await github.rest.pulls.create({
+      owner,
+      repo,
+      title: `Update zone: ${existingZone.name}`,
+      body: `Updates parking zone **${existingZone.name}** (ID: \`${zoneId}\`).\n\n**Changed fields:** ${changedFields}\nVersion: ${existingZone.version} → ${updatedZone.version}\n\nCloses #${issueNumber}`,
+      head: branchName,
+      base: targetBranch,
+    });
+
+    // 8. Check auto-merge eligibility (same logic as submissions)
+    let shouldAutoMerge = false;
+
+    try {
+      const settingsFile = await github.rest.repos.getContent({ owner, repo, path: 'config/settings.json', ref: targetBranch });
+      const settings = JSON.parse(Buffer.from(settingsFile.data.content, 'base64').toString('utf-8'));
+      if (settings.autoMerge) shouldAutoMerge = true;
+    } catch { /* ignore */ }
+
+    if (shouldAutoMerge) {
+      try {
+        await github.rest.pulls.merge({ owner, repo, pull_number: pr.data.number, merge_method: 'squash' });
+
+        try {
+          await updateManifestViaApi({ github, owner, repo, branch: targetBranch });
+        } catch (manifestErr) {
+          core.warning(`Manifest update failed (non-fatal): ${manifestErr.message}`);
+        }
+
+        await addComment(`Zone updated and auto-merged! PR: ${pr.data.html_url}`);
+      } catch (err) {
+        await addComment(`Zone update PR created but auto-merge failed: ${err.message}\n\nPR: ${pr.data.html_url}`);
+      }
+    } else {
+      await addComment(`Zone update PR created for review: ${pr.data.html_url}`);
+    }
+
+    await addLabel('status:completed');
+    await closeIssue();
+
+  } catch (err) {
+    core.setFailed(`Failed to process zone update: ${err.message}`);
     await addComment(`**Internal error:** ${err.message}\n\nPlease try again or contact a maintainer.`);
     await addLabel('status:error');
   }
