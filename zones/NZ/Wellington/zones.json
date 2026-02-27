@@ -1,7 +1,7 @@
 {
   "country": "NZ",
   "region": "Wellington",
-  "lastUpdated": "2026-02-27T00:42:43.337Z",
+  "lastUpdated": "2026-02-27T00:43:53.613Z",
   "zoneCount": 7,
   "zones": {
     "rbsw0q": [
@@ -83,7 +83,7 @@
         "version": 1
       },
       {
-        "name": "CBD Park P60",
+        "name": "Car Park UH P60",
         "description": "Close to SR Legal",
         "center": {
           "lat": -41.124443430345295,
@@ -99,7 +99,7 @@
         "region": "Wellington",
         "id": "cdn-NZ-Wellington-ef7c209f-7f38-4fa4-9f6b-7b64939044a7",
         "verified": false,
-        "version": 2
+        "version": 3
       },
       {
         "name": "Pak N Sav UH",
