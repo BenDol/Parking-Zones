@@ -1,8 +1,8 @@
 {
   "country": "NZ",
   "region": "Wellington",
-  "lastUpdated": "2026-02-26T21:14:51.598Z",
-  "zoneCount": 6,
+  "lastUpdated": "2026-02-27T00:35:42.465Z",
+  "zoneCount": 7,
   "zones": {
     "rbsw0q": [
       {
@@ -116,6 +116,25 @@
         "country": "NZ",
         "region": "Wellington",
         "id": "cdn-NZ-Wellington-ab7d2599-baf7-497d-99fe-40824f9084de",
+        "verified": false,
+        "version": 1
+      },
+      {
+        "name": "UH CBD Car Park P120",
+        "description": "Located close to Monteray Theatre",
+        "center": {
+          "lat": -41.12384317207964,
+          "lng": 175.0724389874172
+        },
+        "radius": 100,
+        "enforcementType": "council",
+        "enforcementMethod": "physical_warden",
+        "freeMinutes": 0,
+        "maxStayMinutes": 120,
+        "currency": "NZD",
+        "country": "NZ",
+        "region": "Wellington",
+        "id": "cdn-NZ-Wellington-b99170e5-0714-4d5a-9dc7-46ca22556808",
         "verified": false,
         "version": 1
       }
