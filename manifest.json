@@ -20,7 +20,7 @@
         "east": 175.1,
         "west": 175
       },
-      "zoneCount": 6
+      "zoneCount": 7
     },
     {
       "country": "NZ",
@@ -56,5 +56,5 @@
       "zoneCount": 1
     }
   ],
-  "lastUpdated": "2026-02-26T21:00:50.485Z"
+  "lastUpdated": "2026-02-27T00:35:46.824Z"
 }
