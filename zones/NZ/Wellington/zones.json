@@ -1,7 +1,7 @@
 {
   "country": "NZ",
   "region": "Wellington",
-  "lastUpdated": "2026-02-27T01:47:45.094Z",
+  "lastUpdated": "2026-02-28T05:46:56.446Z",
   "zoneCount": 7,
   "zones": {
     "rbsw0q": [
@@ -11,17 +11,17 @@
           "lat": -41.099209077122694,
           "lng": 175.09238677610486
         },
-        "radius": 25,
+        "radius": 10,
         "enforcementType": "private",
         "enforcementMethod": "physical_warden",
-        "freeMinutes": 5,
-        "maxStayMinutes": 15,
+        "freeMinutes": 0,
+        "maxStayMinutes": 10,
         "currency": "NZD",
         "country": "NZ",
         "region": "Wellington",
         "id": "cdn-NZ-Wellington-fab3da1b-2a3f-447f-8483-3a5e8930f550",
         "verified": false,
-        "version": 4
+        "version": 5
       }
     ],
     "rbsw04": [
