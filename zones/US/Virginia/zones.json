@@ -1,28 +1,7 @@
 {
   "country": "US",
   "region": "Virginia",
-  "lastUpdated": "2026-02-26T21:00:45.185Z",
-  "zoneCount": 1,
-  "zones": {
-    "dq9t3b": [
-      {
-        "name": "Test",
-        "description": "Test",
-        "center": {
-          "lat": 37.4902122,
-          "lng": -76.5528335
-        },
-        "radius": 50,
-        "enforcementType": "private",
-        "enforcementMethod": "unknown",
-        "freeMinutes": 5,
-        "currency": "USD",
-        "country": "US",
-        "region": "Virginia",
-        "id": "cdn-US-Virginia-98603425-e537-495e-8179-f70548c1f097",
-        "verified": false,
-        "version": 1
-      }
-    ]
-  }
+  "lastUpdated": "2026-02-28T06:44:52.503Z",
+  "zoneCount": 0,
+  "zones": {}
 }
