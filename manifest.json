@@ -48,13 +48,13 @@
       "country": "US",
       "region": "Virginia",
       "bbox": {
-        "north": 37.5,
-        "south": 37.4,
-        "east": -76.5,
-        "west": -76.6
+        "north": -89.9,
+        "south": 90,
+        "east": -179.9,
+        "west": 180
       },
-      "zoneCount": 1
+      "zoneCount": 0
     }
   ],
-  "lastUpdated": "2026-02-27T00:35:46.824Z"
+  "lastUpdated": "2026-02-28T06:44:56.033Z"
 }
