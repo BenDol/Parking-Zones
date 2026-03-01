@@ -1,7 +1,7 @@
 {
   "country": "NZ",
   "region": "Wellington",
-  "lastUpdated": "2026-02-28T05:48:54.416Z",
+  "lastUpdated": "2026-03-01T03:18:57.263Z",
   "zoneCount": 7,
   "zones": {
     "rbsw0q": [
@@ -64,7 +64,7 @@
         "version": 1
       },
       {
-        "name": "Goodshed Rd Shopping Complex",
+        "name": "Park Rd Shopping Complex",
         "description": "Part 2 of retail area",
         "center": {
           "lat": -41.12607657440866,
@@ -74,13 +74,13 @@
         "enforcementType": "private",
         "enforcementMethod": "unknown",
         "freeMinutes": 0,
-        "maxStayMinutes": 120,
+        "maxStayMinutes": 100,
         "currency": "NZD",
         "country": "NZ",
         "region": "Wellington",
         "id": "cdn-NZ-Wellington-35907fd1-0c81-43dc-86df-eec17addb4d1",
         "verified": false,
-        "version": 1
+        "version": 2
       },
       {
         "name": "UH CBD Car Park P60",
