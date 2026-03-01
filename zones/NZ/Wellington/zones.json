@@ -1,27 +1,27 @@
 {
   "country": "NZ",
   "region": "Wellington",
-  "lastUpdated": "2026-03-01T03:18:57.263Z",
+  "lastUpdated": "2026-03-01T05:14:43.493Z",
   "zoneCount": 7,
   "zones": {
     "rbsw0q": [
       {
-        "name": "Dol Houae",
+        "name": "Scout Den",
         "center": {
           "lat": -41.099209077122694,
           "lng": 175.09238677610486
         },
         "radius": 10,
-        "enforcementType": "private",
+        "enforcementType": "council",
         "enforcementMethod": "physical_warden",
         "freeMinutes": 0,
-        "maxStayMinutes": 60,
+        "maxStayMinutes": 30,
         "currency": "NZD",
         "country": "NZ",
         "region": "Wellington",
         "id": "cdn-NZ-Wellington-fab3da1b-2a3f-447f-8483-3a5e8930f550",
         "verified": false,
-        "version": 6
+        "version": 7
       }
     ],
     "rbsw04": [
