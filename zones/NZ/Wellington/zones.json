@@ -1,8 +1,8 @@
 {
   "country": "NZ",
   "region": "Wellington",
-  "lastUpdated": "2026-03-01T05:14:43.493Z",
-  "zoneCount": 7,
+  "lastUpdated": "2026-03-01T05:20:51.197Z",
+  "zoneCount": 8,
   "zones": {
     "rbsw0q": [
       {
@@ -22,6 +22,25 @@
         "id": "cdn-NZ-Wellington-fab3da1b-2a3f-447f-8483-3a5e8930f550",
         "verified": false,
         "version": 7
+      },
+      {
+        "name": "Dol House",
+        "description": "Our place",
+        "center": {
+          "lat": -41.09917159882418,
+          "lng": 175.09264498245992
+        },
+        "radius": 10,
+        "enforcementType": "private",
+        "enforcementMethod": "physical_warden",
+        "freeMinutes": 0,
+        "maxStayMinutes": 15,
+        "currency": "NZD",
+        "country": "NZ",
+        "region": "Wellington",
+        "id": "cdn-NZ-Wellington-5eaf6cc9-b6b3-494d-9029-486fe9b26cc5",
+        "verified": false,
+        "version": 1
       }
     ],
     "rbsw04": [
