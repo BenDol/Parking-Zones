@@ -1,8 +1,8 @@
 {
   "country": "NZ",
   "region": "Wellington",
-  "lastUpdated": "2026-03-01T05:20:51.197Z",
-  "zoneCount": 8,
+  "lastUpdated": "2026-03-12T21:47:15.472Z",
+  "zoneCount": 9,
   "zones": {
     "rbsw0q": [
       {
@@ -154,6 +154,24 @@
         "country": "NZ",
         "region": "Wellington",
         "id": "cdn-NZ-Wellington-b99170e5-0714-4d5a-9dc7-46ca22556808",
+        "verified": false,
+        "version": 1
+      },
+      {
+        "name": "Main St P60",
+        "center": {
+          "lat": -41.124367547348015,
+          "lng": 175.07046536730033
+        },
+        "radius": 10,
+        "enforcementType": "council",
+        "enforcementMethod": "physical_warden",
+        "freeMinutes": 0,
+        "maxStayMinutes": 60,
+        "currency": "NZD",
+        "country": "NZ",
+        "region": "Wellington",
+        "id": "cdn-NZ-Wellington-b0f20fff-95d0-4e1e-aa6c-c09be1624e9e",
         "verified": false,
         "version": 1
       }
