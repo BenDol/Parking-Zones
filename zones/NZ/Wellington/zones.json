@@ -1,8 +1,8 @@
 {
   "country": "NZ",
   "region": "Wellington",
-  "lastUpdated": "2026-03-12T21:47:15.472Z",
-  "zoneCount": 9,
+  "lastUpdated": "2026-03-15T20:35:37.338Z",
+  "zoneCount": 10,
   "zones": {
     "rbsw0q": [
       {
@@ -172,6 +172,27 @@
         "country": "NZ",
         "region": "Wellington",
         "id": "cdn-NZ-Wellington-b0f20fff-95d0-4e1e-aa6c-c09be1624e9e",
+        "verified": false,
+        "version": 1
+      }
+    ],
+    "rbsmse": [
+      {
+        "name": "Hospital P120",
+        "description": "Hardly Grove",
+        "center": {
+          "lat": -41.20262498138738,
+          "lng": 174.9245361290721
+        },
+        "radius": 45,
+        "enforcementType": "council",
+        "enforcementMethod": "physical_warden",
+        "freeMinutes": 0,
+        "maxStayMinutes": 120,
+        "currency": "NZD",
+        "country": "NZ",
+        "region": "Wellington",
+        "id": "cdn-NZ-Wellington-0b26fabd-3bed-4ad5-80f3-44b3ea06ae5f",
         "verified": false,
         "version": 1
       }
