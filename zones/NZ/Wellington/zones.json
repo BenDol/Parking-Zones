@@ -1,8 +1,8 @@
 {
   "country": "NZ",
   "region": "Wellington",
-  "lastUpdated": "2026-03-15T20:35:37.338Z",
-  "zoneCount": 10,
+  "lastUpdated": "2026-03-15T22:24:16.172Z",
+  "zoneCount": 11,
   "zones": {
     "rbsw0q": [
       {
@@ -193,6 +193,25 @@
         "country": "NZ",
         "region": "Wellington",
         "id": "cdn-NZ-Wellington-0b26fabd-3bed-4ad5-80f3-44b3ea06ae5f",
+        "verified": false,
+        "version": 1
+      },
+      {
+        "name": "Janus Bakery",
+        "description": "Lower Hutt",
+        "center": {
+          "lat": -41.203492222079966,
+          "lng": 174.92831111558337
+        },
+        "radius": 30,
+        "enforcementType": "private",
+        "enforcementMethod": "physical_warden",
+        "freeMinutes": 0,
+        "maxStayMinutes": 90,
+        "currency": "NZD",
+        "country": "NZ",
+        "region": "Wellington",
+        "id": "cdn-NZ-Wellington-fb62cebe-43e3-4794-ada4-fa28fb4b404a",
         "verified": false,
         "version": 1
       }
