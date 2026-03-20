@@ -1,7 +1,7 @@
 {
   "country": "NZ",
   "region": "Wellington",
-  "lastUpdated": "2026-03-15T22:24:16.172Z",
+  "lastUpdated": "2026-03-20T02:46:26.817Z",
   "zoneCount": 11,
   "zones": {
     "rbsw0q": [
@@ -70,7 +70,7 @@
           "lat": -41.12529685658157,
           "lng": 175.0744084701103
         },
-        "radius": 50,
+        "radius": 45,
         "enforcementType": "private",
         "enforcementMethod": "physical_warden",
         "freeMinutes": 0,
@@ -80,7 +80,7 @@
         "region": "Wellington",
         "id": "cdn-NZ-Wellington-90adf41a-92b0-4c33-8987-29e2db47fd38",
         "verified": false,
-        "version": 1
+        "version": 2
       },
       {
         "name": "Park Rd Shopping Complex",
