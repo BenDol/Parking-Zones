@@ -1,8 +1,8 @@
 {
   "country": "NZ",
   "region": "Wellington",
-  "lastUpdated": "2026-03-20T02:46:26.817Z",
-  "zoneCount": 11,
+  "lastUpdated": "2026-04-16T22:41:52.416Z",
+  "zoneCount": 12,
   "zones": {
     "rbsw0q": [
       {
@@ -172,6 +172,25 @@
         "country": "NZ",
         "region": "Wellington",
         "id": "cdn-NZ-Wellington-b0f20fff-95d0-4e1e-aa6c-c09be1624e9e",
+        "verified": false,
+        "version": 1
+      },
+      {
+        "name": "CBD P120",
+        "description": "Near Monteray Cinema",
+        "center": {
+          "lat": -41.12359318735582,
+          "lng": 175.0704853104398
+        },
+        "radius": 24,
+        "enforcementType": "council",
+        "enforcementMethod": "physical_warden",
+        "freeMinutes": 0,
+        "maxStayMinutes": 120,
+        "currency": "NZD",
+        "country": "NZ",
+        "region": "Wellington",
+        "id": "cdn-NZ-Wellington-fb1b7d40-41dd-4892-98e5-446e123129db",
         "verified": false,
         "version": 1
       }
