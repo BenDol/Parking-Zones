@@ -1,8 +1,8 @@
 {
   "country": "NZ",
   "region": "Wellington",
-  "lastUpdated": "2026-04-16T22:41:52.416Z",
-  "zoneCount": 12,
+  "lastUpdated": "2026-05-11T01:15:03.219Z",
+  "zoneCount": 13,
   "zones": {
     "rbsw0q": [
       {
@@ -191,6 +191,24 @@
         "country": "NZ",
         "region": "Wellington",
         "id": "cdn-NZ-Wellington-fb1b7d40-41dd-4892-98e5-446e123129db",
+        "verified": false,
+        "version": 1
+      },
+      {
+        "name": "Upper Queen St P60",
+        "center": {
+          "lat": -41.12280425381634,
+          "lng": 175.07453098981478
+        },
+        "radius": 10,
+        "enforcementType": "council",
+        "enforcementMethod": "physical_warden",
+        "freeMinutes": 0,
+        "maxStayMinutes": 60,
+        "currency": "NZD",
+        "country": "NZ",
+        "region": "Wellington",
+        "id": "cdn-NZ-Wellington-26f7aa1f-9563-49d1-b857-2a9f97cd14f8",
         "verified": false,
         "version": 1
       }
