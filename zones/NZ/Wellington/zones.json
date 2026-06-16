@@ -1,8 +1,8 @@
 {
   "country": "NZ",
   "region": "Wellington",
-  "lastUpdated": "2026-05-28T01:27:15.953Z",
-  "zoneCount": 13,
+  "lastUpdated": "2026-06-16T23:21:44.086Z",
+  "zoneCount": 14,
   "zones": {
     "rbsw0q": [
       {
@@ -249,6 +249,26 @@
         "country": "NZ",
         "region": "Wellington",
         "id": "cdn-NZ-Wellington-fb62cebe-43e3-4794-ada4-fa28fb4b404a",
+        "verified": false,
+        "version": 1
+      }
+    ],
+    "rbsm10": [
+      {
+        "name": "Countdown New town P120",
+        "center": {
+          "lat": -41.30777654382552,
+          "lng": 174.77755333405034
+        },
+        "radius": 30,
+        "enforcementType": "shopping_centre",
+        "enforcementMethod": "camera_anpr",
+        "freeMinutes": 0,
+        "maxStayMinutes": 120,
+        "currency": "NZD",
+        "country": "NZ",
+        "region": "Wellington",
+        "id": "cdn-NZ-Wellington-09896603-5d93-4d65-a609-6fd24d1fd833",
         "verified": false,
         "version": 1
       }
