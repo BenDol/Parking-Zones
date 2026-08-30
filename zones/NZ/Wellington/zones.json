@@ -1,7 +1,7 @@
 {
   "country": "NZ",
   "region": "Wellington",
-  "lastUpdated": "2026-08-30T06:20:39.009Z",
+  "lastUpdated": "2026-08-30T06:21:03.118Z",
   "zoneCount": 14,
   "zones": {
     "rbsw0q": [
@@ -213,7 +213,7 @@
         "region": "Wellington",
         "id": "cdn-NZ-Wellington-0b26fabd-3bed-4ad5-80f3-44b3ea06ae5f",
         "verified": false,
-        "version": 2
+        "version": 3
       },
       {
         "name": "Janus Bakery",
