@@ -1,8 +1,8 @@
 {
   "country": "NZ",
   "region": "Wellington",
-  "lastUpdated": "2026-06-16T23:21:44.086Z",
-  "zoneCount": 14,
+  "lastUpdated": "2026-08-30T03:15:52.660Z",
+  "zoneCount": 15,
   "zones": {
     "rbsw0q": [
       {
@@ -269,6 +269,26 @@
         "country": "NZ",
         "region": "Wellington",
         "id": "cdn-NZ-Wellington-09896603-5d93-4d65-a609-6fd24d1fd833",
+        "verified": false,
+        "version": 1
+      }
+    ],
+    "rbsms4": [
+      {
+        "name": "P60 LH",
+        "description": "Close to Victory Christian Church",
+        "center": {
+          "lat": -41.205588344420946,
+          "lng": 174.911272984594
+        },
+        "radius": 10,
+        "enforcementType": "council",
+        "enforcementMethod": "physical_warden",
+        "freeMinutes": 0,
+        "currency": "NZD",
+        "country": "NZ",
+        "region": "Wellington",
+        "id": "cdn-NZ-Wellington-0031806e-d5b3-4502-b9f0-7d5a9b8b559f",
         "verified": false,
         "version": 1
       }
