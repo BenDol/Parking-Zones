@@ -1,28 +1,10 @@
 {
   "country": "NZ",
   "region": "Wellington",
-  "lastUpdated": "2026-08-30T06:13:43.320Z",
-  "zoneCount": 15,
+  "lastUpdated": "2026-08-30T06:15:03.768Z",
+  "zoneCount": 14,
   "zones": {
     "rbsw0q": [
-      {
-        "name": "Scout Den",
-        "center": {
-          "lat": -41.099209077122694,
-          "lng": 175.09238677610486
-        },
-        "radius": 10,
-        "enforcementType": "council",
-        "enforcementMethod": "physical_warden",
-        "freeMinutes": 0,
-        "maxStayMinutes": 30,
-        "currency": "NZD",
-        "country": "NZ",
-        "region": "Wellington",
-        "id": "cdn-NZ-Wellington-fab3da1b-2a3f-447f-8483-3a5e8930f550",
-        "verified": false,
-        "version": 7
-      },
       {
         "name": "Dol House",
         "description": "Our place",
