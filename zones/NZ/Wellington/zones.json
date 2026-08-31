@@ -1,8 +1,8 @@
 {
   "country": "NZ",
   "region": "Wellington",
-  "lastUpdated": "2026-08-30T06:23:55.840Z",
-  "zoneCount": 14,
+  "lastUpdated": "2026-08-31T00:57:55.835Z",
+  "zoneCount": 15,
   "zones": {
     "rbsw0q": [
       {
@@ -274,6 +274,27 @@
         "verified": false,
         "version": 2,
         "maxStayMinutes": 60
+      }
+    ],
+    "rbskcp": [
+      {
+        "name": "P60 Newtown",
+        "description": "Black Coffee Cafe",
+        "center": {
+          "lat": -41.31235062031197,
+          "lng": 174.77937236535143
+        },
+        "radius": 10,
+        "enforcementType": "council",
+        "enforcementMethod": "physical_warden",
+        "freeMinutes": 60,
+        "maxStayMinutes": 60,
+        "currency": "NZD",
+        "country": "NZ",
+        "region": "Wellington",
+        "id": "cdn-NZ-Wellington-2145977b-50c6-403d-9245-5c9b2b6b885c",
+        "verified": false,
+        "version": 1
       }
     ]
   }
