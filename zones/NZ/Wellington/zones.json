@@ -1,7 +1,7 @@
 {
   "country": "NZ",
   "region": "Wellington",
-  "lastUpdated": "2026-08-31T02:42:09.557Z",
+  "lastUpdated": "2026-08-31T02:42:44.259Z",
   "zoneCount": 15,
   "zones": {
     "rbsw0q": [
@@ -252,7 +252,7 @@
         "region": "Wellington",
         "id": "cdn-NZ-Wellington-09896603-5d93-4d65-a609-6fd24d1fd833",
         "verified": false,
-        "version": 7,
+        "version": 8,
         "description": "Countdown"
       }
     ],
