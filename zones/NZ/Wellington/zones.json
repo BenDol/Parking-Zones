@@ -1,7 +1,7 @@
 {
   "country": "NZ",
   "region": "Wellington",
-  "lastUpdated": "2026-08-31T02:40:08.336Z",
+  "lastUpdated": "2026-08-31T02:42:09.557Z",
   "zoneCount": 15,
   "zones": {
     "rbsw0q": [
@@ -237,7 +237,7 @@
     ],
     "rbsm10": [
       {
-        "name": "Countdown New town P120",
+        "name": "Countdown Newtown P120",
         "center": {
           "lat": -41.30777654382552,
           "lng": 174.77755333405034
@@ -252,7 +252,8 @@
         "region": "Wellington",
         "id": "cdn-NZ-Wellington-09896603-5d93-4d65-a609-6fd24d1fd833",
         "verified": false,
-        "version": 6
+        "version": 7,
+        "description": "Countdown"
       }
     ],
     "rbsms4": [
