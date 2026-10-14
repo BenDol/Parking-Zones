@@ -1,7 +1,7 @@
 {
   "country": "NZ",
   "region": "Wellington",
-  "lastUpdated": "2026-09-03T01:15:10.932Z",
+  "lastUpdated": "2026-10-14T20:37:27.147Z",
   "zoneCount": 14,
   "zones": {
     "rbsw04": [
@@ -224,14 +224,14 @@
         "radius": 30,
         "enforcementType": "shopping_centre",
         "enforcementMethod": "camera_anpr",
-        "freeMinutes": 120,
-        "maxStayMinutes": 120,
+        "freeMinutes": 80,
+        "maxStayMinutes": 90,
         "currency": "NZD",
         "country": "NZ",
         "region": "Wellington",
         "id": "cdn-NZ-Wellington-09896603-5d93-4d65-a609-6fd24d1fd833",
         "verified": false,
-        "version": 8,
+        "version": 9,
         "description": "Countdown"
       }
     ],
